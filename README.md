@@ -51,9 +51,9 @@ docker run --name remote-server -e MYSQL_ROOT_PASSWORD=123456 -d mysql --charact
 ```
 
 ### Functionality of application
-#### Show dashboard 
-#### CRUD for servers, can navigate to sshweb2 or CRT
-#### CRUD for dashboards
+#### - Show dashboard 
+#### - CRUD for servers, can navigate to sshweb2 or CRT
+#### - CRUD for dashboards
 
 
 ## Technical Support or Questions

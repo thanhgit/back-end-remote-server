@@ -1,17 +1,18 @@
 package main
 
 import (
-	"backend-end-remote-server/main/main/DTO"
-	_ "backend-end-remote-server/main/main/DTO"
-	"backend-end-remote-server/main/main/db"
-	_ "backend-end-remote-server/main/main/db"
-	_ "backend-end-remote-server/main/main/docs"
+	"strconv"
+	"thanhgit.com/backend-end-remote-server/main/db"
+	_ "thanhgit.com/backend-end-remote-server/main/db"
+	_ "thanhgit.com/backend-end-remote-server/main/docs"
+	"thanhgit.com/backend-end-remote-server/main/dto"
+	_ "thanhgit.com/backend-end-remote-server/main/dto"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"strconv"
 )
 
 func connectDB() {
@@ -25,8 +26,7 @@ func connectDB() {
 	}
 }
 
-func business()  {
-
+func business() {
 
 }
 
@@ -41,7 +41,6 @@ func setupGlobalMiddleware(c *gin.Context) *gin.Context {
 	return c
 }
 
-
 func main() {
 
 	connectDB()
@@ -50,9 +49,7 @@ func main() {
 
 	r := gin.New()
 
-
-
-	url := ginSwagger.URL("http://localhost:7000/swagger/doc.json") // The url pointi
+	url := ginSwagger.URL("http://localhost:7000/swagger/doc.json") // The url endpoint
 	// API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
@@ -73,36 +70,36 @@ func main() {
 		if c.BindJSON(&server) != nil {
 			c.JSON(500, gin.H{
 				"Status": "Error for posting server",
-				"Code": 500,
+				"Code":   500,
 			})
 		} else {
 			db.CreateServer(server)
 			c.JSON(200, gin.H{
 				"Status": "Success",
-				"Code": 200,
+				"Code":   200,
 			})
 		}
 	})
 
-	r.POST("/api/servers/:id_update",  func(c *gin.Context) {
+	r.POST("/api/servers/:id_update", func(c *gin.Context) {
 		c = setupGlobalMiddleware(c)
 		var server db.Server
 		if c.BindJSON(&server) == nil {
 			c.JSON(500, gin.H{
 				"Status": "Erorr for updating server",
-				"Code": 500,
+				"Code":   500,
 			})
 		} else {
 			if db.CheckExistServerById(int(server.ID)) {
 				db.UpdateServer(server)
 				c.JSON(200, gin.H{
 					"Status": "Sucess",
-					"Code": 200,
+					"Code":   200,
 				})
 			} else {
 				c.JSON(500, gin.H{
 					"Status": "Not found Server",
-					"Code": 500,
+					"Code":   500,
 				})
 			}
 
@@ -121,12 +118,12 @@ func main() {
 			db.DeleteServer(id)
 			c.JSON(200, gin.H{
 				"Status": "Success",
-				"Code": 200,
+				"Code":   200,
 			})
 		} else {
 			c.JSON(500, gin.H{
 				"Status": err.Error(),
-				"Code": 500,
+				"Code":   500,
 			})
 		}
 	})
@@ -138,7 +135,7 @@ func main() {
 		var websites []db.Website = db.GetAllWebsites()
 		c.JSON(200, gin.H{
 			"websites": websites,
-			"numbers": len(websites),
+			"numbers":  len(websites),
 		})
 
 	})
@@ -149,13 +146,13 @@ func main() {
 		if c.BindJSON(&website) != nil {
 			c.JSON(500, gin.H{
 				"Status": "Error for posting website instance",
-				"Code": 500,
+				"Code":   500,
 			})
 		} else {
 			db.CreateWebsite(website)
 			c.JSON(200, gin.H{
 				"Status": "Success",
-				"Code": 200,
+				"Code":   200,
 			})
 		}
 	})
@@ -166,19 +163,19 @@ func main() {
 		if c.BindJSON(&website) == nil {
 			c.JSON(500, gin.H{
 				"Status": "Error for updating website",
-				"Code": 500,
+				"Code":   500,
 			})
 		} else {
 			if db.CheckExistWebsiteById(int(website.ID)) {
 				db.UpdateWebsite(website)
 				c.JSON(200, gin.H{
 					"Status": "Sucess",
-					"Code": 200,
+					"Code":   200,
 				})
 			} else {
 				c.JSON(500, gin.H{
 					"Status": "Not found Website",
-					"Code": 500,
+					"Code":   500,
 				})
 			}
 		}
@@ -192,12 +189,12 @@ func main() {
 			db.DeleteWebsite(id)
 			c.JSON(200, gin.H{
 				"Status": "Success",
-				"Code": 200,
+				"Code":   200,
 			})
 		} else {
 			c.JSON(500, gin.H{
 				"Status": err.Error(),
-				"Code": 500,
+				"Code":   500,
 			})
 		}
 	})
@@ -205,20 +202,20 @@ func main() {
 	// Get dashboard
 	r.POST("/api/dashboards", func(c *gin.Context) {
 		c = setupGlobalMiddleware(c)
-		var password DTO.PasswordDTO
+		var password dto.PasswordDTO
 		if c.BindJSON(&password) != nil {
 			websites := db.GetWebsitesByTypeAndPassword("dashboard", "")
 			c.JSON(200, gin.H{
 				"Websites": websites,
-				"Numbers": len(websites),
-				"Type": "dashboard",
+				"Numbers":  len(websites),
+				"Type":     "dashboard",
 			})
 		} else {
 			websites := db.GetWebsitesByTypeAndPassword("dashboard", password.Password)
 			c.JSON(200, gin.H{
 				"Websites": websites,
-				"Numbers": len(websites),
-				"Type": "dashboard",
+				"Numbers":  len(websites),
+				"Type":     "dashboard",
 			})
 		}
 
