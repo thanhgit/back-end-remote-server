@@ -8,9 +8,6 @@ nohup go run main/main.go &
 
 ```
 .
-|-- README.md
-|-- go.mod
-|-- go.sum
 |-- main
 |   |-- api
 |   |   -- api.go
@@ -27,27 +24,12 @@ nohup go run main/main.go &
 -- vendor
     |-- github.com
     |   -- swaggo
-    |       |-- files
-    |       |-- gin-swagger
-    |       |   |-- LICENSE
-    |       |   |-- README.md
-    |       |   |-- b0x.yml
-    |       |   |-- go.mod
-    |       |   |-- go.sum
-    |       |   -- swagger.go
-    |       -- swag
-    |           |-- cmd
-    |           |   `-- swag
-    |           |       -- main.go
-    |           -- license
     -- vendor.json
 ```
 
-## Database
-### Using mysql
-### Build with docker
+## Database using mysql
 ```
-docker run --name remote-server -e MYSQL_ROOT_PASSWORD=123456 -d mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+$ docker run --name remote-server -e MYSQL_ROOT_PASSWORD=123456 -d mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
 ### Functionality of application
