@@ -1,5 +1,5 @@
 ## Back-end-remote-server
-This is apart of remote server project. It's reposibility is to provide API for front-end project
+This is apart of remote server project. It's responsibility is to provide API for front-end project
 
 ## Quickly
 nohup go run main/main.go &
