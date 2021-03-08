@@ -1,4 +1,4 @@
-## Back-end-remote-server
+## Remote-server
 This is apart of remote server project. It's responsibility is to provide API for front-end project
 
 ## Remote server project (https://github.com/thanhgit/remote-server)
@@ -32,6 +32,17 @@ nohup go run main/main.go &
 ## Database using mysql
 ```
 $ docker run --name remote-server -e MYSQL_ROOT_PASSWORD=123456 -d mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+```
+
+## Build go
+```bash
+go build -o remote-server ./main/main.go
+```
+
+## Build docker-compose
+
+```bash
+./build-script.sh
 ```
 
 ### Functionality of application

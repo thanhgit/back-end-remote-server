@@ -9,7 +9,7 @@ var instance *gorm.DB
 
 func GetInstance() *gorm.DB {
 	if instance == nil {
-		db, err := gorm.Open("mysql", "rsuser:123456@/remoteserver?charset=utf8&parseTime=True&loc=Local")
+		db, err := gorm.Open("mysql", "rsuser:123456@tcp(db:3306)/remoteserver?charset=utf8&parseTime=True&loc=Local")
 
 		if err != nil {
 			println(err.Error())

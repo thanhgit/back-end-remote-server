@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    db:
+      image: mysql
+      command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+      environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+        MYSQL_DATABASE: ${MYSQL_DATABASE} 
+        MYSQL_USER: ${MYSQL_USER} 
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD} 
+      ports:
+      - "3306:3306"
+
+    back-end-remote-server:
+      ports:
+      - '7000:7000'
+      image: thanhgit/back-end-remote-server
+      links:
+      - db
+      depends_on:
+      - db
