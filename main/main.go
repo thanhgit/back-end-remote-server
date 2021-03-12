@@ -84,7 +84,7 @@ func main() {
 	r.POST("/api/servers/:id_update", func(c *gin.Context) {
 		c = setupGlobalMiddleware(c)
 		var server db.Server
-		if c.BindJSON(&server) == nil {
+		if c.BindJSON(&server) != nil {
 			c.JSON(500, gin.H{
 				"Status": "Erorr for updating server",
 				"Code":   500,
@@ -160,7 +160,7 @@ func main() {
 	r.POST("/api/websites/:id_update", func(c *gin.Context) {
 		c = setupGlobalMiddleware(c)
 		var website db.Website
-		if c.BindJSON(&website) == nil {
+		if c.BindJSON(&website) != nil {
 			c.JSON(500, gin.H{
 				"Status": "Error for updating website",
 				"Code":   500,
