@@ -45,6 +45,18 @@ go build -o remote-server ./main/main.go
 ./build-script.sh
 ```
 
+## [API](http:localhost:7000)
+- GET    [/api/servers](localhost:7000/api/servers)              
+- POST   /api/servers              
+- POST   /api/servers/:id_update   
+- DELETE /api/servers/:id_delete   
+- GET    [/api/websites](localhost:7000/api)             
+- POST   /api/websites             
+- POST   /api/websites/:id_update  
+- DELETE /api/websites/:id_delete  
+
+## [Swager GUI](http://localhost:7000/swagger/index.html#)
+
 ### Functionality of application
 * #### Show dashboard 
 * #### CRUD for servers, can navigate to sshweb2 or CRT
